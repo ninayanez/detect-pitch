@@ -1,8 +1,15 @@
+var _ = require('underscore')
+
 navigator.webkitGetUserMedia({audio:true,video:false}, function (stream) {
   var context = new AudioContext()
   var mic = context.createMediaStreamSource(stream)
   var buf = 4096
   var recorder = context.createScriptProcessor(buf,1,1)
+
+  _.each(mic, function (v,k) {
+    console.log(v)
+    console.log(k)
+  })
 
   recorder.onaudioprocess = function (e) {
     var d = e.inputBuffer.getChannelData(0)
