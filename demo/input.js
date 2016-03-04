@@ -1,4 +1,4 @@
-if (window.location.protocol!=='https:') 
+if (window.location.protocol != 'https:') 
   window.location = 'https://ninayanez.github.io/detect-pitch'
 
 navigator.webkitGetUserMedia({audio:true,video:false}, function (stream) {
