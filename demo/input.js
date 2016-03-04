@@ -1,3 +1,6 @@
+if (!window.location.protocol.match('https')) 
+  window.location = 'https://ninayanez.github.io/detect-pitch'
+
 navigator.webkitGetUserMedia({audio:true,video:false}, function (stream) {
   var context = new AudioContext()
   var mic = context.createMediaStreamSource(stream)
