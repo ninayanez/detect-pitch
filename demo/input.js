@@ -2,7 +2,7 @@ navigator.webkitGetUserMedia({audio:true,video:false}, function (stream) {
   var context = new AudioContext()
   var mic = context.createMediaStreamSource(stream)
   var buf = 4096
-  var recorder = createJavaScriptNode(buf,1,1)
+  var recorder = context.createJavaScriptNode(buf,1,1)
 
   recorder.onaudioprocess = function (e) {
     var d = e.inputBuffer.getChannelData(0)
