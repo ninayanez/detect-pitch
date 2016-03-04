@@ -1,6 +1,9 @@
 var _ = require('underscore')
 
-navigator.webkitGetUserMedia({audio:true,video:false}, function (stream) {
+navigator.webkitGetUserMedia({
+  audio: true,
+  video: false
+}, function (stream) {
   var context = new AudioContext()
   var mic = context.createMediaStreamSource(stream)
   var buf = 4096
