@@ -1,2 +1,2 @@
 all :
-	./node_modules/.bin/browserify demo/demo.js -o demo/bundle.js
+	./node_modules/.bin/browserify demo/input.js -o ./bundle.js
