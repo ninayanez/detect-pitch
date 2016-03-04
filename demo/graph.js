@@ -1,19 +1,16 @@
 import detectPitch from '../pitch.js'
 import p from './paper-core.min.js'
 
-
 const NUM_SAMPLES = 4096
 const interval = 20
 let signal = new Float32Array(NUM_SAMPLES)
-var ymax = window.innerHeight/300
-
+let ymax = window.innerHeight/300
 
 // use https
 window.addEventListener('load', (e) => { 
   if (window.location.protocol != 'https:') 
     window.location.protocol = 'https:'
 }, false)
-
 
 // setup canvas
 const ctx = document.createElement('canvas')
@@ -31,40 +28,43 @@ p.setup(ctx)
 navigator.webkitGetUserMedia({ 
   audio: true,
   video: false
-}, function (stream) {
-  var context = new AudioContext()
-  var mic = context.createMediaStreamSource(stream)
-  var analyser = context.createAnalyser()
+}, (stream) => {
+  const context = new AudioContext()
+  const mic = context.createMediaStreamSource(stream)
+  const analyser = context.createAnalyser()
 
   mic.connect(analyser)
-  analyser.connect(context.destination)
+  // analyser.connect(context.destination)
 
   function process () {
     requestAnimationFrame(process)
 
     analyser.getFloatTimeDomainData(signal)
 
-    var period = detectPitch(signal, 0.8)
-    var pitch = -1
+    const period = detectPitch(signal, 0.6)
+    let pitch = -1
 
     if(period) {
       pitch = Math.round(44100.0 / period)
       const x = parseInt(peak.position.x + (peak.bounds.width*0.5)) + interval
       const y = window.innerHeight - (pitch*ymax)
       peak.add(new p.Segment([x,y],[-11,0],[11,0]))
+
       if (peak.position.x + (peak.bounds.width * 0.5) > window.innerWidth) {
         peak.position.x = (window.innerWidth-peak.position.x) + (interval+5)
         peak.removeSegments(0,1)
       }
+
       p.view.draw()
     }
   }
 
   process()
 
-}, function (e) {
+}, (e) => {
   if (e) console.error(e)
 })
+
 
 const peak = new p.Path([0,window.innerHeight-25],[0,window.innerHeight-25])
 peak.strokeColor = '#333'
