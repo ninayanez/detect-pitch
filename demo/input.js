@@ -10,7 +10,6 @@ navigator.webkitGetUserMedia({
 }, function (stream) {
   var context = new AudioContext()
   var mic = context.createMediaStreamSource(stream)
-  var buf = 4096
   var analyser = context.createAnalyser()
 
   mic.connect(analyser)
@@ -21,7 +20,7 @@ navigator.webkitGetUserMedia({
 
     analyser.getFloatTimeDomainData(signal)
 
-    var period = detectPitch(signal, 0.2)
+    var period = detectPitch(signal, 0.8)
     var pitch = -1
 
     if(period) {
