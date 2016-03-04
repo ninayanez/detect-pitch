@@ -9,10 +9,7 @@ navigator.webkitGetUserMedia({
   var buf = 4096
   var recorder = context.createScriptProcessor(buf,1,1)
 
-  _.each(mic, function (v,k) {
-    console.log(v)
-    console.log(k)
-  })
+  window.mic = mic
 
   recorder.onaudioprocess = function (e) {
     var d = e.inputBuffer.getChannelData(0)
@@ -29,4 +26,3 @@ window.onload = function () {
   if (window.location.protocol != 'https:') 
     window.location.protocol = 'https:'
 }
-
