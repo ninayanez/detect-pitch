@@ -42,14 +42,14 @@ navigator.webkitGetUserMedia({
   var analyser = context.createAnalyser();
 
   mic.connect(analyser);
-  analyser.connect(context.destination);
+  // analyser.connect(context.destination)
 
   function process() {
     requestAnimationFrame(process);
 
     analyser.getFloatTimeDomainData(signal);
 
-    var period = (0, _pitchJs2['default'])(signal, 0.8);
+    var period = (0, _pitchJs2['default'])(signal, 0.6);
     var pitch = -1;
 
     if (period) {
@@ -57,10 +57,12 @@ navigator.webkitGetUserMedia({
       var x = parseInt(peak.position.x + peak.bounds.width * 0.5) + interval;
       var y = window.innerHeight - pitch * ymax;
       peak.add(new _paperCoreMinJs2['default'].Segment([x, y], [-11, 0], [11, 0]));
+
       if (peak.position.x + peak.bounds.width * 0.5 > window.innerWidth) {
         peak.position.x = window.innerWidth - peak.position.x + (interval + 5);
         peak.removeSegments(0, 1);
       }
+
       _paperCoreMinJs2['default'].view.draw();
     }
   }
