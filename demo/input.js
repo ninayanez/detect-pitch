@@ -1,4 +1,8 @@
 var _ = require('underscore')
+var detectPitch = require('../pitch')
+
+var NUM_SAMPLES = 4096
+var signal = new Float32Array(NUM_SAMPLES)
 
 navigator.webkitGetUserMedia({
   audio: true,
@@ -7,17 +11,27 @@ navigator.webkitGetUserMedia({
   var context = new AudioContext()
   var mic = context.createMediaStreamSource(stream)
   var buf = 4096
-  var recorder = context.createScriptProcessor(buf,1,1)
+  var analyser = context.createAnalyser()
 
-  window.mic = mic
+  mic.connect(analyser)
+  analyser.connect(context.destination)
 
-  recorder.onaudioprocess = function (e) {
-    var d = e.inputBuffer.getChannelData(0)
-    console.log(d)
+  function process () {
+    requestAnimationFrame(process)
+
+    analyser.getFloatTimeDomainData(signal)
+
+    var period = detectPitch(signal, 0.2)
+    var pitch = -1
+
+    if(period) {
+      pitch = Math.round(44100.0 / period)
+      console.log(pitch)
+    }
   }
 
-  mic.connect(recorder)
-  recorder.connect(context.destination)
+  process()
+
 }, function (e) {
   if (e) console.error(e)
 })
