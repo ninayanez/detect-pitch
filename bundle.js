@@ -108,7 +108,30 @@ window.addEventListener('resize', function (e) {
   console.log(e);
 });
 
-window.addEventListener('mousewheel', function (e) {});
+window.addEventListener('mousewheel', function (e) {
+  if (!e.target.className.match('slide')) return;
+
+  var range = e.target.className.match('cutoff') ? false : true;
+
+  var val = parseInt(e.target.value);
+
+  if (e.deltaY < 0) {
+    if (e.target.value < 0) return;
+    e.target.value = val--;
+  } else {
+    var max = range ? 10000 : 10;
+    if (e.target.value > max) return;
+    e.target.value = val++;
+  }
+});
+
+document.body.querySelector('.cutoff').addEventListener('change', function (e) {
+  console.log(e);
+}, false);
+
+document.body.querySelector('.range').addEventListener('change', function (e) {
+  console.log(e);
+}, false);
 
 },{"../pitch.js":21,"./paper-core.min.js":2}],2:[function(require,module,exports){
 /*!
