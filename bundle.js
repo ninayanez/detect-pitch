@@ -109,7 +109,8 @@ window.addEventListener('resize', function (e) {
 });
 
 window.addEventListener('mousewheel', function (e) {
-  if (!e.target.className.match('slide')) return;
+  console.log(e.target);
+  if (e.target.tagName == 'CANVAS') return;
 
   var range = e.target.className.match('cutoff') ? false : true;
 
