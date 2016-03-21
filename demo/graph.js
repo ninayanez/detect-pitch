@@ -6,11 +6,13 @@ const interval = 20
 let signal = new Float32Array(NUM_SAMPLES)
 let ymax = window.innerHeight/300
 
+
 // use https
 window.addEventListener('load', (e) => { 
   if (window.location.protocol != 'https:') 
     window.location.protocol = 'https:'
 }, false)
+
 
 // setup canvas
 const ctx = document.createElement('canvas')
@@ -112,27 +114,29 @@ window.addEventListener('resize', (e) => {
 
 window.addEventListener('mousewheel', (e) => {
   if (!e.target.className.match('slide')) return
+
   const range = (e.target.className.match('cutoff')) 
     ? false
     : true
+
+  const val = parseInt(e.target.value)
+
   if (e.deltaY < 0) {
     if (e.target.value < 0) return
-    e.target.value = parseInt(e.target.value)--
+    e.target.value = val--
   } else {
-    const max = (range) ? 10000 : 10
+    const max = (range) ? 10000 : 10;
     if (e.target.value > max) return
-    e.target.value = parseInt(e.target.value)++
+    e.target.value = val++
   }
 })
 
 
 document.body.querySelector('.cutoff').addEventListener('change', (e) => {
   console.log(e)
-
 }, false)
 
 
 document.body.querySelector('.range').addEventListener('change', (e) => {
   console.log(e)
-
 }, false)
