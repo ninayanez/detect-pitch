@@ -101,4 +101,38 @@ const drawGraph = function () {
   p.view.draw()
 }
 
+
 drawGraph()
+
+
+window.addEventListener('resize', (e) => {
+  console.log(e)
+})
+
+
+window.addEventListener('mousewheel', (e) => {
+  if (!e.target.className.match('slide')) return
+  const range = (e.target.className.match('cutoff')) 
+    ? false
+    : true
+  if (e.deltaY < 0) {
+    if (e.target.value < 0) return
+    e.target.value = parseInt(e.target.value)--
+  } else {
+    const max = (range) ? 10000 : 10
+    if (e.target.value > max) return
+    e.target.value = parseInt(e.target.value)++
+  }
+})
+
+
+document.body.querySelector('.cutoff').addEventListener('change', (e) => {
+  console.log(e)
+
+}, false)
+
+
+document.body.querySelector('.range').addEventListener('change', (e) => {
+  console.log(e)
+
+}, false)
