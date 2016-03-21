@@ -104,6 +104,12 @@ var drawGraph = function drawGraph() {
 
 drawGraph();
 
+window.addEventListener('resize', function (e) {
+  console.log(e);
+});
+
+window.addEventListener('mousewheel', function (e) {});
+
 },{"../pitch.js":21,"./paper-core.min.js":2}],2:[function(require,module,exports){
 /*!
  * Paper.js v0.9.25 - The Swiss Army Knife of Vector Graphics Scripting.
