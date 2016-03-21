@@ -113,13 +113,14 @@ window.addEventListener('resize', (e) => {
 
 
 window.addEventListener('mousewheel', (e) => {
-  if (!e.target.className.match('slide')) return
+  console.log(e.target)
+  if (e.target.tagName == 'CANVAS') return
 
   const range = (e.target.className.match('cutoff')) 
     ? false
     : true
 
-  const val = parseInt(e.target.value)
+  let val = parseInt(e.target.value)
 
   if (e.deltaY < 0) {
     if (e.target.value < 0) return
