@@ -55,7 +55,7 @@ navigator.webkitGetUserMedia({
     if (period) {
       pitch = Math.round(44100.0 / period);
       var x = parseInt(peak.position.x + peak.bounds.width * 0.5) + interval;
-      var y = window.innerHeight - pitch * ymax;
+      var y = window.innerHeight - (pitch * ymax);
       peak.add(new _paperCoreMinJs2['default'].Segment([x, y], [-11, 0], [11, 0]));
 
       if (peak.position.x + peak.bounds.width * 0.5 > window.innerWidth) {
